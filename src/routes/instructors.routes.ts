@@ -39,9 +39,9 @@ instructorsRouter.put('/:id', async (request, response) => {
   const { id } = request.params;
   const { name, email, birth } = request.body;
 
-  const updateInstructorService = new UpdateInstructorService();
+  const updateInstructor = new UpdateInstructorService();
 
-  const instructor = await updateInstructorService.execute({
+  const instructor = await updateInstructor.execute({
     id,
     name,
     email,
@@ -54,9 +54,9 @@ instructorsRouter.put('/:id', async (request, response) => {
 instructorsRouter.delete('/:id', async (request, response) => {
   const { id } = request.params;
 
-  const removeInstructorService = new RemoveInstructorService();
+  const removeInstructor = new RemoveInstructorService();
 
-  await removeInstructorService.execute(id);
+  await removeInstructor.execute(id);
 
   return response.status(201).send();
 });

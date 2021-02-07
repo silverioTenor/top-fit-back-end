@@ -36,11 +36,11 @@ export default class CreateMembers1612657182832 implements MigrationInterface {
           },
           {
             name: 'weight',
-            type: 'varchar',
+            type: 'integer',
           },
           {
             name: 'height',
-            type: 'varchar',
+            type: 'integer',
           },
           {
             name: 'instructor_id',

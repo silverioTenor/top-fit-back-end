@@ -31,10 +31,10 @@ class Member {
   blood: 'A1' | 'A2' | 'B1' | 'B2' | 'AB1' | 'AB2' | 'O1' | 'O2';
 
   @Column()
-  weight: string;
+  weight: number;
 
   @Column()
-  height: string;
+  height: number;
 
   @Column()
   instructor_id: string;
