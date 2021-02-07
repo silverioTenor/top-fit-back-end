@@ -17,7 +17,7 @@ class CreateMember {
   public async execute(props: RequestProps): Promise<Member> {
     const membersRepository = getRepository(Member);
 
-    const hasMember = membersRepository.findOne({ where: { email: props.email } });
+    const hasMember = await membersRepository.findOne({ where: { email: props.email } });
 
     if (hasMember) throw new AppError('Email address already used!');
 
