@@ -1,9 +1,11 @@
 import { parseISO } from 'date-fns';
 import { Router } from 'express';
 import { getRepository } from 'typeorm';
+
 import Instructor from '../models/Instructor';
 
 import CreateInstructortService from '../services/CreateInstructor.service';
+import UpdateInstructor from '../services/UpdateInstructor.service';
 
 const instructorsRouter = Router();
 
@@ -27,6 +29,22 @@ instructorsRouter.post('/', async (request, response) => {
     email,
     birth: parsedDate,
     gender,
+  });
+
+  return response.json(instructor);
+});
+
+instructorsRouter.put('/:id', async (request, response) => {
+  const { id } = request.params;
+  const { name, email, birth } = request.body;
+
+  const updateInstructor = new UpdateInstructor();
+
+  const instructor = await updateInstructor.execute({
+    id,
+    name,
+    email,
+    birth,
   });
 
   return response.json(instructor);
