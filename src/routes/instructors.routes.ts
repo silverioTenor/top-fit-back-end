@@ -4,9 +4,9 @@ import { getRepository } from 'typeorm';
 
 import Instructor from '../models/Instructor';
 
-import CreateInstructortService from '../services/CreateInstructor.service';
-import RemoveInstructorService from '../services/RemoveInstructor.service';
-import UpdateInstructorService from '../services/UpdateInstructor.service';
+import CreateInstructortService from '../services/instructors/CreateInstructor.service';
+import RemoveInstructorService from '../services/instructors/RemoveInstructor.service';
+import UpdateInstructorService from '../services/instructors/UpdateInstructor.service';
 
 const instructorsRouter = Router();
 
