@@ -3,6 +3,7 @@ import { getRepository } from 'typeorm';
 import { parseISO } from 'date-fns';
 
 import CreateMemberService from '../services/members/CreateMember.service';
+import UpdateMemberService from '../services/members/UpdateMember.service';
 
 import Member from '../models/Member';
 
@@ -44,6 +45,22 @@ membersRouter.post('/', async (request, response) => {
   });
 
   return response.json(member);
+});
+
+membersRouter.put('/:id', async (request, response) => {
+  const { name, email, weight, height, instructor_id } = request.body;
+
+  const updateMember = new UpdateMemberService();
+
+  const updatedMember = await updateMember.excute({
+    name,
+    email,
+    weight,
+    height,
+    instructor_id,
+  });
+
+  return response.json(updatedMember);
 });
 
 export default membersRouter;
