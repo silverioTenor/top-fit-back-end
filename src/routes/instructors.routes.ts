@@ -5,6 +5,7 @@ import { getRepository } from 'typeorm';
 import Instructor from '../models/Instructor';
 
 import CreateInstructortService from '../services/CreateInstructor.service';
+import RemoveInstructor from '../services/RemoveInstructor.service';
 import UpdateInstructor from '../services/UpdateInstructor.service';
 
 const instructorsRouter = Router();
@@ -48,6 +49,16 @@ instructorsRouter.put('/:id', async (request, response) => {
   });
 
   return response.json(instructor);
+});
+
+instructorsRouter.delete('/:id', async (request, response) => {
+  const { id } = request.params;
+
+  const removeInstructorService = new RemoveInstructor();
+
+  await removeInstructorService.execute(id);
+
+  return response.status(201).send();
 });
 
 export default instructorsRouter;
