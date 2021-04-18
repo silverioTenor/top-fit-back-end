@@ -1,5 +1,5 @@
 import { getRepository } from 'typeorm';
-import AppError from '../../../shared/errors/AppError';
+import AppError from '@shared/errors/AppError';
 import Member from '../infra/typeorm/entities/Member';
 
 interface RequestProps {

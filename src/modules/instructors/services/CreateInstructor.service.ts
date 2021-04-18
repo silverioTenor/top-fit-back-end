@@ -1,17 +1,17 @@
 import { getRepository } from 'typeorm';
-import AppError from '../../../shared/errors/AppError';
+import AppError from '@shared/errors/AppError';
+
+import ICreateInstructorDTO from '../dtos/ICreateInstructorDTO';
 
 import Instructor from '../infra/typeorm/entities/Instructor';
 
-interface Request {
-  name: string;
-  email: string;
-  birth: Date;
-  gender: 'male' | 'female';
-}
-
-class CreateInstructor {
-  public async execute({ name, email, birth, gender }: Request): Promise<Instructor> {
+class CreateInstructorService {
+  public async execute({
+    name,
+    email,
+    birth,
+    gender,
+  }: ICreateInstructorDTO): Promise<Instructor> {
     const instructorRepository = getRepository(Instructor);
 
     const hasUser = await instructorRepository.findOne({ where: { email } });
@@ -33,4 +33,4 @@ class CreateInstructor {
   }
 }
 
-export default CreateInstructor;
+export default CreateInstructorService;
