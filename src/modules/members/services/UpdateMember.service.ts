@@ -2,29 +2,29 @@ import { getRepository } from 'typeorm';
 import AppError from '@shared/errors/AppError';
 
 import Member from '../infra/typeorm/entities/Member';
-
-interface RequestProps {
-  name: string;
-  email: string;
-  weight: number;
-  height: number;
-  instructor_id: string;
-}
+import ICreateMemberDTO from '../dtos/ICreateMemberDTO';
 
 class UpdateMemberService {
-  public async excute(props: RequestProps): Promise<Member> {
+  public async excute({
+    name,
+    email,
+    instructor_id,
+    weight,
+    height,
+  }: ICreateMemberDTO): Promise<Member> {
     const membersRepository = getRepository(Member);
 
-    const hasMember = await membersRepository.findOne({ where: { email: props.email } });
+    const hasMember = await membersRepository.findOne({ where: { email } });
 
     if (!hasMember) throw new AppError('Member not found!');
 
     const updatedMember = membersRepository.create({
       ...hasMember,
-      name: props.name,
-      weight: props.weight,
-      height: props.height,
-      instructor_id: props.instructor_id,
+      name,
+      email,
+      weight,
+      height,
+      instructor_id,
     });
 
     await membersRepository.save(updatedMember);

@@ -1,37 +1,37 @@
 import { getRepository } from 'typeorm';
 import AppError from '@shared/errors/AppError';
+
+import ICreateMemberDTO from '../dtos/ICreateMemberDTO';
 import Member from '../infra/typeorm/entities/Member';
 
-interface RequestProps {
-  name: string;
-  email: string;
-  birth: Date;
-  gender: 'male' | 'female';
-  blood: 'A1' | 'A2' | 'B1' | 'B2' | 'AB1' | 'AB2' | 'O1' | 'O2';
-  weight: number;
-  height: number;
-  instructor_id: string;
-}
-
 class CreateMember {
-  public async execute(props: RequestProps): Promise<Member> {
+  public async execute({
+    name,
+    email,
+    birth,
+    gender,
+    instructor_id,
+    blood,
+    weight,
+    height,
+  }: ICreateMemberDTO): Promise<Member> {
     const membersRepository = getRepository(Member);
 
-    const hasMember = await membersRepository.findOne({ where: { email: props.email } });
+    const hasMember = await membersRepository.findOne({ where: { email } });
 
     if (hasMember) throw new AppError('Email address already used!');
 
-    const parsedBirth = new Date(props.birth);
+    const parsedBirth = new Date(birth);
 
     const member = membersRepository.create({
-      name: props.name,
-      email: props.email,
+      name,
+      email,
       birth: parsedBirth,
-      gender: props.gender,
-      blood: props.blood,
-      weight: props.weight,
-      height: props.height,
-      instructor_id: props.instructor_id,
+      gender,
+      blood,
+      weight,
+      height,
+      instructor_id,
     });
 
     await membersRepository.save(member);
