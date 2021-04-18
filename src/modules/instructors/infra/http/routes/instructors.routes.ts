@@ -2,11 +2,11 @@ import { parseISO } from 'date-fns';
 import { Router } from 'express';
 import { getRepository } from 'typeorm';
 
-import Instructor from '../models/Instructor';
+import Instructor from '@modules/instructors/infra/typeorm/entities/Instructor';
 
-import CreateInstructortService from '../services/instructors/CreateInstructor.service';
-import RemoveInstructorService from '../services/instructors/RemoveInstructor.service';
-import UpdateInstructorService from '../services/instructors/UpdateInstructor.service';
+import CreateInstructortService from '@modules/instructors/services/CreateInstructor.service';
+import RemoveInstructorService from '@modules/instructors/services/RemoveInstructor.service';
+import UpdateInstructorService from '@modules/instructors/services/UpdateInstructor.service';
 
 const instructorsRouter = Router();
 

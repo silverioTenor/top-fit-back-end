@@ -1,6 +1,6 @@
 import { getRepository } from 'typeorm';
-import AppError from '../../errors/AppError';
-import Instructor from '../../models/Instructor';
+import AppError from '../../../../shared/errors/AppError';
+import Instructor from '../../../../models/Instructor';
 
 class RemoveInstructor {
   public async execute(id: string): Promise<void> {

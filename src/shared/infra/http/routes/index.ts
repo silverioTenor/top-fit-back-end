@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
-import instructors from './instructors.routes';
-import members from './members.routes';
+import instructors from '@modules/instructors/infra/http/routes/instructors.routes';
+import members from '@modules/members/infra/http/routes/members.routes';
 
 const routes = Router();
 

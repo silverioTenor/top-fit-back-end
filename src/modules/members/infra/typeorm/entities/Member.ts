@@ -8,7 +8,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import Instructor from './Instructor';
+import Instructor from '../../../../instructors/infra/typeorm/entities/Instructor';
 
 @Entity('members')
 class Member {

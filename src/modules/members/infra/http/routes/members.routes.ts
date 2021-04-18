@@ -2,10 +2,10 @@ import { Router } from 'express';
 import { getRepository } from 'typeorm';
 import { parseISO } from 'date-fns';
 
-import CreateMemberService from '../services/members/CreateMember.service';
-import UpdateMemberService from '../services/members/UpdateMember.service';
+import CreateMemberService from '@modules/members/services/CreateMember.service';
+import UpdateMemberService from '@modules/members/services/UpdateMember.service';
 
-import Member from '../models/Member';
+import Member from '../../typeorm/entities/Member';
 
 const membersRouter = Router();
 
