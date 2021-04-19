@@ -1,10 +1,18 @@
-import { getRepository } from 'typeorm';
+import { injectable, inject } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 
 import Member from '../infra/typeorm/entities/Member';
-import ICreateMemberDTO from '../dtos/ICreateMemberDTO';
 
+import ICreateMemberDTO from '../dtos/ICreateMemberDTO';
+import IMembersRepository from '../repositories/IMembersRepository';
+
+@injectable()
 class UpdateMemberService {
+  constructor(
+    @inject('MembersRepository')
+    private membersRepository: IMembersRepository,
+  ) {}
+
   public async excute({
     name,
     email,
@@ -12,13 +20,11 @@ class UpdateMemberService {
     weight,
     height,
   }: ICreateMemberDTO): Promise<Member> {
-    const membersRepository = getRepository(Member);
-
-    const hasMember = await membersRepository.findOne({ where: { email } });
+    const hasMember = await this.membersRepository.findByEmail(email);
 
     if (!hasMember) throw new AppError('Member not found!');
 
-    const updatedMember = membersRepository.create({
+    const updatedMember = await this.membersRepository.save({
       ...hasMember,
       name,
       email,
@@ -26,8 +32,6 @@ class UpdateMemberService {
       height,
       instructor_id,
     });
-
-    await membersRepository.save(updatedMember);
 
     return updatedMember;
   }
