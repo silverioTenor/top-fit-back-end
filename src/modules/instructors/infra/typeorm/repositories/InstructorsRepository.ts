@@ -37,6 +37,10 @@ class InstructorsRepository implements IInstructorsRepository {
 
     return instructor;
   }
+
+  public async delete(id: string): Promise<void> {
+    await this.ormRepository.delete(id);
+  }
 }
 
 export default InstructorsRepository;

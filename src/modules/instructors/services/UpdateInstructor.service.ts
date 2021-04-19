@@ -1,33 +1,38 @@
-import { getRepository } from 'typeorm';
+import { injectable, inject } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 
 import Instructor from '../infra/typeorm/entities/Instructor';
+import IInstructorsRepository from '../repositories/IInstructorsRepository';
 
-interface RequestProps {
+interface IRequestProps {
   id: string;
   name: string;
   email: string;
   birth: Date;
 }
 
+@injectable()
 class UpdateInstructor {
-  public async execute({ id, name, email, birth }: RequestProps): Promise<Instructor> {
-    const instructorRepository = getRepository(Instructor);
+  constructor(
+    @inject('InstructorsRepository')
+    private instructorRepository: IInstructorsRepository,
+  ) {}
 
-    const instructor = await instructorRepository.findOne({ where: { id } });
+  public async execute({ id, name, email, birth }: IRequestProps): Promise<Instructor> {
+    const instructor = await this.instructorRepository.findById(id);
 
     if (!instructor) throw new AppError('Instructor not found!');
 
     const instructorDate = new Date(birth);
 
-    const updateInstructor = instructorRepository.create({
+    const updateInstructor = await this.instructorRepository.create({
       ...instructor,
       name,
       email,
       birth: instructorDate,
     });
 
-    await instructorRepository.save(updateInstructor);
+    await this.instructorRepository.save(updateInstructor);
 
     return updateInstructor;
   }

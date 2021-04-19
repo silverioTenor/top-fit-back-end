@@ -1,16 +1,21 @@
-import { getRepository } from 'typeorm';
+import { injectable, inject } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
-import Instructor from '../infra/typeorm/entities/Instructor';
 
+import IInstructorsRepository from '../repositories/IInstructorsRepository';
+
+@injectable()
 class RemoveInstructor {
-  public async execute(id: string): Promise<void> {
-    const instructorRepository = getRepository(Instructor);
+  constructor(
+    @inject('InstructorsRepository')
+    private instructorRepository: IInstructorsRepository,
+  ) {}
 
-    const instructor = await instructorRepository.findOne({ where: { id } });
+  public async execute(id: string): Promise<void> {
+    const instructor = await this.instructorRepository.findById(id);
 
     if (!instructor) throw new AppError('Instructor not found!');
 
-    await instructorRepository.delete(id);
+    await this.instructorRepository.delete(id);
   }
 }
 

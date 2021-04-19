@@ -6,4 +6,5 @@ export default interface IInstructorsRepository {
   findByEmail(email: string): Promise<Instructor | undefined>;
   create(data: ICreateInstructorDTO): Promise<Instructor>;
   save(instructor: Instructor): Promise<Instructor>;
+  delete(id: string): Promise<void>;
 }
