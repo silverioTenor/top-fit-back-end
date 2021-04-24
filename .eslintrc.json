@@ -28,6 +28,8 @@
     "class-methods-use-this": "off",
     "no-useless-constructor":"off",
     "camelcase": "off",
+    "array-callback-return": "off",
+    "consistent-return": "off",
     "@typescript-eslint/no-unused-vars": [
       "error",
       { "argsIgnorePattern": "_" }
