@@ -31,7 +31,7 @@ describe('CreateInstructor', () => {
       gender: 'male',
     });
 
-    expect(
+    await expect(
       createInstructor.execute({
         name: 'Adalberto Nunes',
         email: 'juca@gmail.com',
